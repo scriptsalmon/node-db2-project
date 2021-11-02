@@ -15,12 +15,25 @@ exports.checkCarId = async (req, res, next) => {
   }
 }
 
-exports.checkCarPayload = async (req, res, next) => {
-  try {
+exports.checkCarPayload = (req, res, next) => {
+    const error = { status: 400 }
+    const { vin, make, model, mileage } = req.body;
+    if(!vin){
+      next({ error, message: 'vin is missing' })
+    } else if (!make){
+      next({ error, message: 'make is missing' })
+    } else if (!model){
+      next({ error, message: 'model is missing' })
+    } else if (!mileage){
+      next({ error, message: 'mileage is missing' })
+    } 
 
-  } catch (err) {
-    next(err);
-  }
+    if(error.message) {
+      next(error)
+    } else {
+      next()
+    }
+
 }
 
 exports.checkVinNumberValid = async (req, res, next) => {

@@ -18,18 +18,18 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', mw.checkCarId, (req, res, next) => {
-    res.status(200).json(req.car)
+    res.status(200).json(req.car);
 })
 
-router.post('/', (req, res) => {
-    res.json({ message: 'returns the created car' })
+router.post('/', mw.checkCarPayload, (req, res, next) => {
+    res.status(201).json(req.body);
 })
 
 router.use((err, req, res, next) => {
     res.status( err.status || 500 ).json({
         message: err.message,
         stack: err.stack
-    })
+    });
 })
 
 module.exports = router;
