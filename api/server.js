@@ -2,6 +2,8 @@ const express = require("express")
 
 const server = express()
 
-// DO YOUR MAGIC
+server.get('/', (req, res) => {
+    res.json({ message: 'server is up!' })
+})
 
 module.exports = server
