@@ -7,8 +7,9 @@ const getAll = async () => {
 }
 
 const getById = async (id) => {
-  const result2 = await db('cars').where('id', id).first();
-  console.log("getById: ", result2);
+  const result = await db('cars').where('id', id).first();
+  return result;
+  // return db('cars').where({ id }).first()
 }
 
 const create = () => {

@@ -1,6 +1,8 @@
 const express = require('express')
 //model
 const Cars = require('./cars-model.js')
+//middleware
+const mw = require('./cars-middleware.js')
 //knex
 //db
 
@@ -15,8 +17,8 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.get('/:id', (req, res) => {
-    res.json({ message: 'returns the car by given id' })
+router.get('/:id', mw.checkCarId, (req, res, next) => {
+    res.status(200).json(req.car)
 })
 
 router.post('/', (req, res) => {

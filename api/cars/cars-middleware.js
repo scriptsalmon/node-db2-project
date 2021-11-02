@@ -1,15 +1,40 @@
-const checkCarId = (req, res, next) => {
-  // DO YOUR MAGIC
+const Cars = require('./cars-model.js');
+
+exports.checkCarId = async (req, res, next) => {
+  try {
+    const validCar = await Cars.getById(req.params.id)
+    if(!validCar){
+      next({ status: 404, message: 'id not found' })
+    } else {
+      req.car = validCar;
+      next()
+    }
+    next()
+  } catch (err) {
+    next({ status: 400, message: 'checkCarId malfunctioned' });
+  }
 }
 
-const checkCarPayload = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkCarPayload = async (req, res, next) => {
+  try {
+
+  } catch (err) {
+    next(err);
+  }
 }
 
-const checkVinNumberValid = (req, res, next) => {
-  // DO YOUR MAGIC
+exports.checkVinNumberValid = async (req, res, next) => {
+    try {
+
+  } catch (err) {
+    next(err);
+  }
 }
 
-const checkVinNumberUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+const checkVinNumberUnique = async (req, res, next) => {
+    try {
+
+  } catch (err) {
+    next(err);
+  }
 }
