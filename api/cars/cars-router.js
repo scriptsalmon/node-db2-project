@@ -21,8 +21,15 @@ router.get('/:id', mw.checkCarId, (req, res, next) => {
     res.status(200).json(req.car);
 })
 
-router.post('/', mw.checkCarPayload, (req, res, next) => {
-    res.status(201).json(req.body);
+router.post('/', mw.checkCarPayload, async (req, res, next) => {
+    try {
+        const newCar = await Cars.create(req.body);
+        if (newCar){
+            res.status(201).json(newCar)
+        }
+    } catch (err) {
+        next(err)
+    }
 })
 
 router.use((err, req, res, next) => {

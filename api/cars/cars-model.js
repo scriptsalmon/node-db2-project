@@ -12,8 +12,10 @@ const getById = async (id) => {
   // return db('cars').where({ id }).first()
 }
 
-const create = () => {
-  console.log("create: ")
+const create = async (car) => {
+  // INSERT into cars (vin, make, model, mileage, title, transmission) values ('1234', 'toyota', 'AE86', 1337, 'clean', 'manual');
+  const [id] = await db('cars').insert(car);
+  return getById(id);
 }
 
 module.exports = {
