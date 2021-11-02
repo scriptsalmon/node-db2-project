@@ -41,10 +41,11 @@ exports.checkCarPayload = (req, res, next) => {
 
 exports.checkVinNumberValid = async (req, res, next) => {
     try {
-      const isValidVin = vinValidator.validate(req.body.vin);
+      const isValidVin = vinValidator.validate(`${req.body.vin}`);
       if(!isValidVin){
         next({ status: 400, message: `vin ${req.body.vin} is invalid` })
-      } else {
+      } 
+      else {
         next();
       }
   } catch (err) {
@@ -52,9 +53,14 @@ exports.checkVinNumberValid = async (req, res, next) => {
   }
 }
 
-const checkVinNumberUnique = async (req, res, next) => {
+exports.checkVinNumberUnique = async (req, res, next) => {
     try {
-      
+      const vinExists = Cars.checkVin(req.body.vin);
+      if(vinExists){
+        next({ status: 400, message: `vin ${req.body.vin} already exists` })
+      } else {
+        next()
+      }
   } catch (err) {
     next(err);
   }
